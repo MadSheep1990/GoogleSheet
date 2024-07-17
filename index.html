@@ -46,10 +46,6 @@
             document.getElementById('myForm').reset()
           }
 
-          xhr.onerror = function () {
-            console.error('Error while submitting the form.')
-          }
-
           xhr.send(new URLSearchParams(formData))
         })
     </script>
