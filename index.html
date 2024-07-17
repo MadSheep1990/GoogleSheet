@@ -1,35 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Submit Data to Google Sheet</title>
-    </head>
-    <body>
-        <h2>Submit Data</h2>
-        <form id="myForm">
-            <label for="name">Name:</label><br />
-            <input type="text" id="name" name="name" required /><br /><br />
-            <label for="email">Email:</label><br />
-            <input type="email" id="email" name="email" required /><br /><br />
-            <label for="message">Message:</label><br />
-            <textarea id="message" name="message" rows="4" required></textarea><br /><br />
-            <button type="submit">Submit</button>
-        </form>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Submit Data to Google Sheet</title>
+  </head>
+  <body>
+    <h2>Submit Data</h2>
+    <form id="myForm">
+      <label for="name">Name:</label><br />
+      <input type="text" id="name" name="name" required /><br /><br />
+      <label for="email">Email:</label><br />
+      <input type="email" id="email" name="email" required /><br /><br />
+      <label for="message">Message:</label><br />
+      <textarea id="message" name="message" rows="4" required></textarea
+      ><br /><br />
+      <button type="submit">Submit</button>
+    </form>
 
-        <div id="response"></div>
+    <div id="response"></div>
 
-        <script>
+    <script>
       document
         .getElementById('myForm')
         .addEventListener('submit', function (event) {
           event.preventDefault()
           var formData = new FormData(this)
-          var xhr = new XMLHttpRequest()
-          xhr.open(
-            'POST',
+          var proxyUrl = 'https://cors-anywhere.herokuapp.com/'
+          var targetUrl =
             'https://script.google.com/macros/s/AKfycbzGVF2Ko8gK7YjnuvIuQyWG4aYFjHSujUOn2KVcIjAs6ib_5NdaBcyhqQnPsRQqqLDUeQ/exec'
-          ) // Replace with your Google Apps Script web app URL
+          var xhr = new XMLHttpRequest()
+          xhr.open('POST', proxyUrl + targetUrl)
+
           xhr.onload = function () {
             var response = JSON.parse(xhr.responseText)
             document.getElementById('response').innerHTML =
@@ -39,10 +41,14 @@
               response.message +
               '</p>'
             document.getElementById('myForm').reset()
-window.location.href = "https://google.com";
           }
+
+          xhr.onerror = function () {
+            console.error('Error while submitting the form.')
+          }
+
           xhr.send(formData)
         })
     </script>
-    </body>
+  </body>
 </html>
