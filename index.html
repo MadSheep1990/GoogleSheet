@@ -24,7 +24,7 @@
       event.preventDefault();
       var formData = new FormData(this);
       var xhr = new XMLHttpRequest();
-      xhr.open("POST", "YOUR_SCRIPT_URL"); // Replace with your Google Apps Script web app URL
+      xhr.open("POST", "https://script.google.com/macros/s/AKfycbzGVF2Ko8gK7YjnuvIuQyWG4aYFjHSujUOn2KVcIjAs6ib_5NdaBcyhqQnPsRQqqLDUeQ/exec"); // Replace with your Google Apps Script web app URL
       xhr.onload = function() {
         var response = JSON.parse(xhr.responseText);
         document.getElementById("response").innerHTML = "<p>Status: " + response.status + "</p><p>" + response.message + "</p>";
